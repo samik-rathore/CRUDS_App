@@ -26,7 +26,7 @@ export default class EditUser extends Component {
         const id= arr[arr.length-1];
         console.log(id);
         
-        axios.get(`http://localhost:5000/users/${id}`)
+        axios.get(`https://basic-cruds-app.herokuapp.com/${id}`)
             .then(response =>{
                 this.setState({
                     name: response.data.name,
@@ -76,7 +76,7 @@ export default class EditUser extends Component {
         const arr = window.location.pathname.split('/');
         const id= arr[arr.length-1];
         console.log(id);
-        axios.post(`http://localhost:5000/users/update/${id}`,user)
+        axios.post(`https://basic-cruds-app.herokuapp.com/${id}`,user)
             .then(res=>console.log(res.data));
 
         window.location='/';

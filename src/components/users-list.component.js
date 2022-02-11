@@ -16,7 +16,7 @@ export default class UserList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/users/')
+        axios.get('https://basic-cruds-app.herokuapp.com/users/')
             .then(response =>{
                 this.setState({users:response.data})
             })
@@ -26,7 +26,7 @@ export default class UserList extends Component {
     }
 
     deleteUser(id){
-        axios.delete('http://localhost:5000/users/'+id)
+        axios.delete('https://basic-cruds-app.herokuapp.com/users/'+id)
             .then(res=>console.log(res.data));
         this.setState({
             users: this.state.users.filter(el => el._id!==id)
