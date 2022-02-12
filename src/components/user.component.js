@@ -3,10 +3,7 @@ import UserList from './users-list.component';
 import {Link} from 'react-router-dom';
 
 export default class User extends Component{
-    constructor(props){
-        super(props);
-    }
-
+    
     render(){
         return(
             <tr>
