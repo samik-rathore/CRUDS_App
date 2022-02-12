@@ -44,7 +44,7 @@ export default class UserList extends Component {
         <div>
             <h1>Basic CRUDS App</h1>
             <input type="button" value="New User" onClick={()=>this.setState({isOpen:!this.state.isOpen})}/>
-            {this.state.isOpen && (<Popup content={<><CreateUser/></>} handleClose={()=>this.setState(!this.state.isOpen)}/>)}
+            {this.state.isOpen && (<Popup content={<><CreateUser/></>} handleClose={()=>{this.setState(!this.state.isOpen)}}/>)}
             hii
             <table className='table'>
                 <thead className='thead-light'>
