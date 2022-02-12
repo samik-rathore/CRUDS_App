@@ -26,7 +26,7 @@ export default class EditUser extends Component {
         const id= arr[arr.length-1];
         console.log(id);
         
-        axios.get(`https://basic-cruds-app.herokuapp.com/users/update/${id}`)
+        axios.get(`https://basic-cruds-app.herokuapp.com/users/${id}`)
             .then(response =>{
                 this.setState({
                     name: response.data.name,
