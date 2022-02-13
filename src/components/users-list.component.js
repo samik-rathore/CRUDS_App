@@ -3,6 +3,7 @@ import CreateUser from './create-user.component';
 import axios from 'axios';
 import User from './user.component.js';
 
+
 export default class UserList extends Component {
     constructor(props){
         super(props);
@@ -11,8 +12,44 @@ export default class UserList extends Component {
 
         this.state={
             isOpen:false,
-            users:[]
+            users:[],
+            checkedUsers:[],
+            sent:false,
+            
         };
+        
+    }
+
+    handleSend = async() => {
+        this.setState({sent:true})
+        try{
+            await axios.post("https://basic-cruds-app.herokuapp.com/users/send_mail",{
+                text:'hey'
+            })
+        } catch(error){
+            console.log(error)
+        }
+    }
+
+    handleChange=(e)=>{  
+
+        if (e.target.checked === true){
+            this.setState({
+                checkedUsers:[...this.state.checkedUsers,e.target.value]
+            },()=>{
+                console.log(this.state.checkedUsers);
+            });
+        }
+        
+        else{
+            let remove = this.state.checkedUsers.indexOf(e.target.value);
+            this.setState({
+                checkedUsers: this.state.checkedUsers.filter((_,i) => i!== remove)
+            },()=>{
+                console.log(this.state.checkedUsers);
+            });
+            
+        }
     }
 
     componentDidMount() {
@@ -35,7 +72,7 @@ export default class UserList extends Component {
 
     userList(){
         return this.state.users.map(currentuser => {
-            return <User user={currentuser} deleteUser={this.deleteUser} key={currentuser._id}/>
+            return <User user={currentuser} deleteUser={this.deleteUser} key={currentuser._id} handleChange={this.handleChange}/>
         })
     }
 
@@ -45,7 +82,6 @@ export default class UserList extends Component {
             <h1>Basic CRUDS App</h1>
             <input type="button" value="New User" onClick={()=>this.setState({isOpen:!this.state.isOpen})}/>
             {this.state.isOpen && (<Popup content={<><CreateUser/></>} handleClose={()=>this.setState({isOpen:!this.state.isOpen})}/>)}
-            hii
             <table className='table'>
                 <thead className='thead-light'>
                     <tr>
@@ -61,6 +97,7 @@ export default class UserList extends Component {
                     {this.userList()}
                 </tbody>
             </table>
+            <button onClick={this.handleSend}>Send to email</button>
         </div>
         )
     }
