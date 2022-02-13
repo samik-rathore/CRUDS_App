@@ -22,9 +22,10 @@ export default class UserList extends Component {
 
     handleSend = async() => {
         this.setState({sent:true})
+
         try{
             await axios.post("https://basic-cruds-app.herokuapp.com/users/send_mail",{
-                text:'hey'
+                text:this.state.checkedUsers
             })
         } catch(error){
             console.log(error)
@@ -82,7 +83,7 @@ export default class UserList extends Component {
             <h1>Basic CRUDS App</h1>
             <input type="button" value="New User" onClick={()=>this.setState({isOpen:!this.state.isOpen})}/>
             {this.state.isOpen && (<Popup content={<><CreateUser/></>} handleClose={()=>this.setState({isOpen:!this.state.isOpen})}/>)}
-            <table className='table'>
+            <table className='table' id="customers">
                 <thead className='thead-light'>
                     <tr>
                         <th>Select</th>
